@@ -19,6 +19,7 @@ mongoose.connect(database.db, {
 
 const dailyVerseAPI = require('../backend/routes/dailyVerse.route')
 const prayerRequestAPI = require('../backend/routes/prayerRequest.route')
+const userLoginAPI = require('../backend/routes/userLogin.route')
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -29,6 +30,7 @@ app.use(cors());
 // API
 app.use('/api', dailyVerseAPI)
 app.use('/api2', prayerRequestAPI)
+app.use('/api3', userLoginAPI)
 
 // Create port
 const port = process.env.PORT || 4000;
@@ -38,7 +40,7 @@ const server = app.listen(port, () => {
 
 // Find 404
 app.use((req, res, next) => {
-  next(createError(404));
+  return res.status(404).send();
 });
 
 // error handler
