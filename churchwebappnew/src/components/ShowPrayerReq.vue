@@ -16,7 +16,7 @@
                         <td>{{ prayerRequest.name }}</td>
                         <td>{{ prayerRequest.request }}</td>
                         <td>
-                            <router-link></router-link>
+                          <a href="/viewUL">Click me</a>
                             <button @click.prevent="deletePrayerRequest(prayerRequest._id)" class="btn btn-danger">Delete</button>
                         </td>
                         </tr>

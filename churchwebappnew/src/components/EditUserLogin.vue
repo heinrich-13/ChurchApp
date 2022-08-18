@@ -37,6 +37,41 @@
 
 <script>
 import axios from "axios";
+function findEmail(email, callback) {
+  // we find the user by email
+  const user = getUser()
+  console.log('user found')
+  callback(user)
+}
+
+findEmail("whater@sdsd.com",(user)=> {
+  console.log(user)
+  foobar()
+  .then(() => {
+
+  }).then(() => {
+
+  })
+})
+
+function findEmail2(email) {
+  return new Promise((resolve)=> {
+    // we find the user by email
+    const user = getUser()
+    console.log('user found')
+    resolve(user)
+  }, (reject) => {
+    reject(new Error("OOPS!"))
+  })
+}
+
+findEmail2("fo@bar.com").then(user => {
+  console.log('user found')
+})
+
+const user = await findEmail2()
+console.log('user found');
+
 
 export default {
     data() {
@@ -44,23 +79,27 @@ export default {
             userLogin: { }
         }
     },
-    created() {
+    async created() {
         let apiURL = `http://localhost:4000/api3/editUL/${this.$route.params.id}`;
-
-        axios.get(apiURL).then((res) => {
-            this.userLogin = res.data;
-        })
+        try {
+          const res = await axios.get(apiURL);
+          this.userLogin = res.data;
+        } catch (e) {
+          alert("could not fetch data")
+          console.log(e);
+        }
     },
     methods: {
-        handleUpdateForm() {
+      handleUpdateForm: async function() {
+
+      },
+        async handleUpdateForm2() {
             let apiURL = `http://localhost:4000/api3/editUL/${this.$route.params.id}`;
 
-            axios.post(apiURL, this.userLogin).then((res) => {
-                console.log(res)
-                this.$router.push('/editUL')
-            }).catch(error => {
-                console.log(error)
-            });
+            const res= await axios.post(apiURL, this.userLogin)
+            console.log(res)
+            this.$router.push('/editUL')
+
         }
     }
 }
