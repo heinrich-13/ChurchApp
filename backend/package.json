@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "serve": "vue-cli-service serve"
+    "start-dev": "node_modules/.bin/nodemon app.js"
   },
   "author": "Heinrich Stoltz",
   "license": "ISC",

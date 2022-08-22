@@ -14,9 +14,9 @@ let dailyVerseSchema = new Schema({
   body: {
     type: String
   }
-}, 
-{
-  collection: 'dailyVerses'
-})
+},
+  {
+    collection: 'dailyVerses'
+  })
 
 module.exports = mongoose.model('DailyVerse', dailyVerseSchema)

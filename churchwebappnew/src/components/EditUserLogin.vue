@@ -2,35 +2,34 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <h3 class="text-center">Update User Login</h3>
-            <form @submit.prevent="handleUpdateForm">
-                <div class="form-group">
-                    <label>Date</label>
-                    <input type="text" class="form-control" v-model="userLogin.date" required>
-                </div>
+            <div class="form-group">
+                <label>Date</label>
+                <input type="text" class="form-control" v-model="userLogin.date" required>
+            </div>
 
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" v-model="userLogin.name" required>
-                </div>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" v-model="userLogin.name" required>
+            </div>
 
-                <div class="form-group">
-                    <label>Surname</label>
-                    <input type="text" class="form-control" v-model="userLogin.surname" required>
-                </div>
+            <div class="form-group">
+                <label>Surname</label>
+                <input type="text" class="form-control" v-model="userLogin.surname" required>
+            </div>
 
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="text" class="form-control" v-model="userLogin.email" required>
-                </div>
-<div class="form-group">
-                    <label>Password</label>
-                    <input type="text" class="form-control" v-model="userLogin.password" required>
-                </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" v-model="userLogin.email" required>
+            </div>
 
-                <div class="form-group">
-                    <button class="btn btn-danger btn-block">Update</button>
-                </div>
-            </form>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="text" class="form-control" v-model="userLogin.password" required>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-danger btn-block" @click="handleUpdateUserDetails">Update</button>
+            </div>
         </div>
     </div>
 </template>
@@ -41,27 +40,31 @@ import axios from "axios";
 export default {
     data() {
         return {
-            userLogin: { }
+            userLogin: {}
         }
     },
-    created() {
+    async created() {
         let apiURL = `http://localhost:4000/api3/editUL/${this.$route.params.id}`;
-
-        axios.get(apiURL).then((res) => {
+        try {
+            const res = await axios.get(apiURL);
             this.userLogin = res.data;
-        })
+        } catch (e) {
+            alert("Could not fetch user details")
+            console.log(e);
+        }
     },
     methods: {
-        handleUpdateForm() {
-            let apiURL = `http://localhost:4000/api3/editUL/${this.$route.params.id}`;
-
-            axios.post(apiURL, this.userLogin).then((res) => {
-                console.log(res)
-                this.$router.push('/editUL')
-            }).catch(error => {
-                console.log(error)
-            });
+        async handleUpdateUserDetails() {
+            let apiURL = `http://localhost:4000/api3/updateUL/${this.$route.params.id}`;
+            try {
+                const res = await axios.post(apiURL, this.userLogin);
+                this.userLogin = res.data;
+                this.$router.push({ name: "viewUserDetails" })
+            } catch (e) {
+                alert("Could not update user details")
+                console.log(e);
+            }
         }
     }
 }
-</script>
+</script> 

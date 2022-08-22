@@ -20,11 +20,13 @@
                         <td>{{ userLogin.email }}</td>
                         <td>{{ userLogin.password }}</td>
                         <td>
-                            <router-link :to="{name: 'edit', params: { id: userLogin._id }}" class="btn btn-success">Edit
+                            <router-link :to="{ name: 'userDetailsEdit', params: { id: userLogin._id } }"
+                                class="btn btn-success">Edit
                             </router-link>
-                            <button @click.prevent="deleteUserLogin(userLogin._id)" class="btn btn-danger">Delete</button>
+                            <button @click.prevent="deleteUserLogin(userLogin._id)"
+                                class="btn btn-danger">Delete</button>
                         </td>
-                        </tr>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -32,40 +34,40 @@
 </template>
 
 <script>
-    import axios from "axios";
+import axios from "axios";
 
-    export default {
-        data() {
-            return {
-                userLogins: []
-            }
-        },
-        created() {
-            let apiURL = 'http://localhost:4000/api3/viewUL';
-            axios.get(apiURL).then(res => {
-                this.userLogins = res.data;
-            }).catch(error => {
-                console.log(error)
+export default {
+    data() {
+        return {
+            userLogins: []
+        }
+    },
+    created() {
+        let apiURL = 'http://localhost:4000/api3/viewUL';
+        axios.get(apiURL).then(res => {
+            this.userLogins = res.data;
+        }).catch(error => {
+            console.log(error)
+        });
+    },
+    methods: {
+        deleteUserLogin(id) {
+            let apiURL = `http://localhost:4000/api3/deleteUL/${id}`;
+            let indexOfArrayItem = this.userLogins.findIndex(i => i._id === id);
+
+            if (window.confirm("Do you really want to delete?")) {
+                axios.delete(apiURL).then(() => {
+                    this.userLogins.splice(indexOfArrayItem, 1);
+                }).catch(error => {
+                    console.log(error)
                 });
-        },
-        methods: {
-            deleteUserLogin(id){
-                let apiURL = `http://localhost:4000/api3/deleteUL/${id}`;
-                let indexOfArrayItem = this.userLogins.findIndex(i => i._id === id);
-
-                if (window.confirm("Do you really want to delete?")) {
-                    axios.delete(apiURL).then(() => {
-                        this.userLogins.splice(indexOfArrayItem, 1);
-                    }).catch(error => {
-                        console.log(error)
-                    });
-                }
             }
         }
     }
+}
 </script>
 <style>
-    .btn-success {
-        margin-right: 10px;
-    }
+.btn-success {
+    margin-right: 10px;
+}
 </style>

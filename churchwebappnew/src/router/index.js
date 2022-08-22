@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-//import { component } from 'vue/types/umd'
 
 Vue.use(VueRouter)
 
@@ -8,46 +7,46 @@ const routes = [
   {
     path: '/',
     name: 'home',
+    component: () => import('../components/LoginHomePage')
+  },
+  {
+    path: '/daily-verse-view/all',
+    name: 'viewDailyVerse',
     component: () => import('../components/ShowDailyVerses')
   },
   {
-    path: '/view',
-    name: 'view',
-    component: () => import('../components/ShowDailyVerses')
-  },
-  {
-    path: '/createDV',
-    name: 'createDV',
+    path: '/daily-verse-create',
+    name: 'createDailyVerse',
     component: () => import('../components/CreateDailyVerse')
   },
   {
-    path: '/edit/:id',
-    name: 'edit',
+    path: '/daily-verse-edit/:id',
+    name: 'editDailyVerse',
     component: () => import('../components/EditDailyVerse')
   },
   {
-    path: '/viewPR',
-    name: 'viewPR',
+    path: '/prayer-request-view/all',
+    name: 'viewPrayerRequest',
     component: () => import('../components/ShowPrayerReq')
   },
   {
-    path: '/createPR',
-    name: 'createPR',
+    path: '/prayer-request-create',
+    name: 'createPrayerRequest',
     component: () => import('../components/CreatePrayerReq')
   },
   {
-    path: '/createUL',
-    name: 'createUL',
+    path: '/user-details-create',
+    name: 'createUserDetails',
     component: () => import('../components/CreateNewUser')
   },
   {
-    path: '/viewUL',
-    name: 'viewUL',
+    path: '/user-details-show/all',
+    name: 'viewUserDetails',
     component: () => import('../components/ShowUserLogin')
   },
   {
-    path: '/editUL',
-    name: 'editUL',
+    path: '/user-details-edit/:id',
+    name: 'userDetailsEdit',
     component: () => import('../components/EditUserLogin')
   }
 ]

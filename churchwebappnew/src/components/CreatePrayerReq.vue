@@ -21,38 +21,38 @@
                 <div class="form-group">
                     <button class="btn btn-danger btn-block">Create</button>
                 </div>
-                </form>
+            </form>
         </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
-    export default {
-        data() {
-            return {
-                prayerRequest: {
-                   date: '',
-                   name: '',
-                   request: ''
-                }
+export default {
+    data() {
+        return {
+            prayerRequest: {
+                date: '',
+                name: '',
+                request: ''
             }
-        },
-        methods: {
-            handleSubmitForm() {
-                let apiURL = 'http://localhost:4000/api2/create-prayerRequest';
-                
-                axios.post(apiURL, this.prayerRequest).then(() => {
-                  this.$router.push('/viewPR')
-                  this.prayerRequest = {
+        }
+    },
+    methods: {
+        handleSubmitForm() {
+            let apiURL = 'http://localhost:4000/api2/create-prayerRequest';
+
+            axios.post(apiURL, this.prayerRequest).then(() => {
+                this.$router.push({ name: "viewPrayerRequest" })
+                this.prayerRequest = {
                     date: '',
                     name: '',
                     request: ''
-                  }
-                }).catch(error => {
-                    console.log(error)
-                });
-            }
+                }
+            }).catch(error => {
+                console.log(error)
+            });
         }
     }
+}
 </script>

@@ -11,9 +11,9 @@ let prayerRequestSchema = new Schema({
   request: {
     type: String
   }
-}, 
-{
-  collection: 'prayerRequests'
-})
+},
+  {
+    collection: 'prayerRequests'
+  })
 
 module.exports = mongoose.model('PrayerRequest', prayerRequestSchema)
